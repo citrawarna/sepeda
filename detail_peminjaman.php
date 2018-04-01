@@ -26,7 +26,7 @@ if(isset($_GET['nota'])){
 ?>
 
 <h3>Detail Sepeda yang dipinjam</h3>
-<form action="proses/proses_detail.php" method="post">
+<form action="proses/proses_detail.php" method="post" name="detail_peminjaman">
 	<table class="table" id="order_table">
 		<tr>
 			<td>No Nota</td>
@@ -41,6 +41,7 @@ if(isset($_GET['nota'])){
 			</td>
 			<td><?= $kd_trans['nama']; ?></td>
 			<td><input type="text" class="form-control" name="id_sepeda"></td>
+			<input type="hidden" name="sepeda">
 			<td><button type="button" class="btn btn-sm btn-danger fa fa-minus btn-minus disabled">-</button></td>
 			<input type="hidden" class="form-control" name="jumlah_sepeda" value="1">
 		</tr>
@@ -53,6 +54,35 @@ if(isset($_GET['nota'])){
 	</div>
 
 </form>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var sepeda = $('input[name=id_sepeda]');
+		var data_sepeda = [];
+		var dat = [];
+		$.ajax({
+			url: 'request_ajax.php',
+			method: 'GET',
+			success: function(data){
+				var res = JSON.parse(data);
+				for(var o in res){
+					var d = {id_sepeda:res[o].id_sepeda, nama_sepeda:res[o].nama_sepeda};
+					dat.push(res[o].nama_sepeda);
+					data_sepeda.push(d); 
+				}
+			}
+		});
+		sepeda.autocomplete({
+			source: dat,
+			change: function(event, ui){
+				var value = ui;
+				var data = data_sepeda.find(function(val){
+					return val.nama_sepeda == sepeda.val();
+				});
+				$('input[name=sepeda]').val(data.id_sepeda);
+			}
+		});
+	});
+</script>
 
 <?php include_once('view/footer.php') ?>
 

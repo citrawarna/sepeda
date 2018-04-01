@@ -4,11 +4,13 @@
 	<meta charset="UTF-8">
 	<title> <?= $title; ?> - Rental Sepeda</title>
 	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/jquery-ui-1.9.2.custom.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 	<link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
 	<link rel="icon" href="<?= base_url('img/logo-sepeda.png') ?>">
 	<script src="js/jquery-3.2.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
+	<script src="js/jquery-ui.min.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-warning">

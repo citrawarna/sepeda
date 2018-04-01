@@ -2,7 +2,7 @@
 include_once('config.php');
 
 $kd_transaksi = $_POST['kd_transaksi'];
-$id_sepeda = $_POST['id_sepeda'];
+$id_sepeda = $_POST['sepeda'];
 $jumlah = 1;
 
 //select table peminjaman untuk diupdate jumlah sepeda yg sudah dibawa
