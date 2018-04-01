@@ -30,7 +30,7 @@ switch ($_GET['fungsi']) {
 			pesan("warning", "Mohon mengisi semua kolom yang disediakan", "../sepeda.php");
 		}
 
-		$insert = $db->query("INSERT INTO sepeda VALUES (null, ".quote($nama_sepeda).", ".quote($jumlah_sepeda).", 0)");
+		$insert = $db->query("INSERT INTO sepeda VALUES (null, ".quote($nama_sepeda).", ".quote($jumlah_sepeda).", 0, ".quote($jumlah_sepeda)." )");
 
 		pesan("success", "Data sepeda berhasil ditambahkan", "../sepeda.php");
 
