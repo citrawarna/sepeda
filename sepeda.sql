@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 30 Mar 2018 pada 09.48
+-- Generation Time: 03 Apr 2018 pada 09.32
 -- Versi Server: 10.1.10-MariaDB
 -- PHP Version: 7.0.3
 
@@ -29,16 +29,21 @@ SET time_zone = "+00:00";
 CREATE TABLE `detail_peminjaman` (
   `kd_transaksi` int(11) NOT NULL,
   `id_sepeda` int(11) NOT NULL,
-  `jumlah` int(11) NOT NULL
+  `jumlah` int(11) NOT NULL,
+  `kembali` varchar(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `detail_peminjaman`
 --
 
-INSERT INTO `detail_peminjaman` (`kd_transaksi`, `id_sepeda`, `jumlah`) VALUES
-(1, 1, 1),
-(1, 1, 1);
+INSERT INTO `detail_peminjaman` (`kd_transaksi`, `id_sepeda`, `jumlah`, `kembali`) VALUES
+(3, 1, 1, 'n'),
+(3, 2, 1, 'n'),
+(3, 3, 1, 'n'),
+(4, 4, 1, 'n'),
+(4, 4, 1, 'n'),
+(4, 4, 1, 'n');
 
 -- --------------------------------------------------------
 
@@ -62,7 +67,8 @@ CREATE TABLE `member` (
 INSERT INTO `member` (`id_member`, `nama`, `kitas`, `tipe`, `telp`, `status`) VALUES
 (1, 'Refo Junior', '15632515351', 1, '083114738768', 0),
 (2, 'YUI Yoshioka', '156325151', 1, '081222', 1),
-(3, 'Kadek Roni', '1112233', 2, '088555', 1);
+(3, 'Kadek Roni', '1112233', 2, '088555', 1),
+(4, 'Zephys', '11112', 1, '083114738768', 0);
 
 -- --------------------------------------------------------
 
@@ -85,7 +91,8 @@ CREATE TABLE `peminjaman` (
 --
 
 INSERT INTO `peminjaman` (`kd_transaksi`, `id_member`, `tanggal`, `jam_pinjam`, `total_sepeda`, `dibawa`, `selesai`) VALUES
-(1, 1, '2018-03-30', '15:41:50', 2, 2, 'n');
+(3, 1, '2018-04-03', '09:49:32', 3, 3, 'n'),
+(4, 4, '2018-04-03', '11:57:19', 3, 3, 'n');
 
 -- --------------------------------------------------------
 
@@ -99,6 +106,14 @@ CREATE TABLE `pengembalian` (
   `jam_kembali` time NOT NULL,
   `biaya` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `pengembalian`
+--
+
+INSERT INTO `pengembalian` (`kd_transaksi`, `tanggal_kembali`, `jam_kembali`, `biaya`) VALUES
+(0, '0000-00-00', '00:00:00', 0),
+(0, '0000-00-00', '00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -119,9 +134,10 @@ CREATE TABLE `sepeda` (
 --
 
 INSERT INTO `sepeda` (`id_sepeda`, `nama_sepeda`, `jumlah_sepeda`, `dipinjam`, `ready`) VALUES
-(1, 'Wim Cycle', 5, 2, 3),
-(2, 'Sepeda Gunung', 3, 0, 3),
-(3, 'BMX', 2, 0, 2);
+(1, 'Wim Cycle', 5, 1, 4),
+(2, 'Sepeda Gunung', 3, 1, 2),
+(3, 'BMX', 2, 1, 1),
+(4, 'palsu', 3, 3, 0);
 
 -- --------------------------------------------------------
 
@@ -146,7 +162,7 @@ INSERT INTO `setting` (`id`, `param`, `value`, `stat`) VALUES
 (3, 'harga', '5000', 1),
 (4, 'paging', '20', 1),
 (6, 'valid_time', '10', 1),
-(7, 'token', '67cfee32668990c1c6f78fb97c1568fd0d84c544', 1);
+(7, 'token', '49872a5f20b484ead2e9e4c5be9a04c8c355f3a0', 1);
 
 -- --------------------------------------------------------
 
@@ -209,17 +225,17 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `id_member` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_member` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `peminjaman`
 --
 ALTER TABLE `peminjaman`
-  MODIFY `kd_transaksi` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `kd_transaksi` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `sepeda`
 --
 ALTER TABLE `sepeda`
-  MODIFY `id_sepeda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_sepeda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `setting`
 --
