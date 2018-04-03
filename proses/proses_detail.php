@@ -21,7 +21,7 @@ if($jumlah_spd['total_sepeda'] <= $jumlah_spd['dibawa']){
 
 //insert to table detail peminjaman
 $ins_detail = $db->query("INSERT INTO detail_peminjaman VALUES (".quote($kd_transaksi).", 
-	".quote($id_sepeda).", 1)" );
+	".quote($id_sepeda).", 1, 'n')" );
 
 //select tabel sepeda untuk diupdate stok sepeda yang ada dan yg dipinjam
 $get_sepeda = $db->prepare("SELECT * FROM sepeda WHERE id_sepeda = '$id_sepeda'");

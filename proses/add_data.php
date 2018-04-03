@@ -37,7 +37,7 @@ switch ($_GET['fungsi']) {
 		break;
 
 	case 'add_peminjaman':
-		$id_member = $_POST['id_member'];
+		$id_member = $_POST['member'];
 		$tanggal = $_POST['tanggal'];
 		$jam_pinjam = $_POST['jam_pinjam'];
 		$total_sepeda = $_POST['total_sepeda'];
@@ -63,6 +63,36 @@ switch ($_GET['fungsi']) {
 			}
 		}
 		
+		break;
+
+	case 'pengembalian':
+		$kd_transaksi = $_POST['kd_transaksi'];
+		$tanggal_kembali = $_POST['tanggal_kembali'];
+		$jam_kembali = $_POST['jam_kembali'];
+		$biaya = $_POST['biaya'];
+		//proses insert ke tbl pengembalian
+		$ins = $db->query("INSERT INTO pengembalian VALUES (".quote($kd_transaksi).", ".quote($tanggal_kembali)."
+			, ".quote($jam_kembali).", ".quote($biaya).")");
+		
+		//update tb peminjaman ganti status selesai = y 
+		$upd_pem = $db->query("UPDATE peminjaman SET selesai = 'y', dibawa = 0 WHERE kd_transaksi = ".quote($kd_transaksi)." ");
+
+		//update tb detail peminjaman ubah status kembali = y
+		$upd_dtl = $db->query("UPDATE detail_peminjaman SET kembali = 'y' WHERE kd_transaksi = '$kd_transaksi' ");
+
+		$selectSpd = $db->query("SELECT * from detail_peminjaman inner join sepeda on sepeda.id_sepeda = detail_peminjaman.id_sepeda 
+			WHERE detail_peminjaman.kd_transaksi = '$kd_transaksi' ");
+		print_r($selectSpd->fetch());
+
+
+
+		//istirahat dulu, masih memikirkan kode untuk mengupdate stok sepeda yang dikembalikan
+		//di count dlu id_sepeda dan jumlah
+		//setelah itu di query agar table sepeda juga terupdate
+		//fakk ternyata susah amat ga semudah yg gw pikirin
+
+
+
 		break;
 
 

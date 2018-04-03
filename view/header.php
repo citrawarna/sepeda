@@ -31,7 +31,7 @@
 		        </a>
 		        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 		          <a class="dropdown-item" href="<?= base_url('peminjaman.php') ?>">Peminjaman</a>
-		          <a class="dropdown-item" href="#">Pengembalian</a>
+		          <a class="dropdown-item" href="<?= base_url('pengembalian.php') ?>">Pengembalian</a>
 		        </div>
 		      <li class="nav-item ">
 		        <a class="nav-link" href="<?= base_url('...'); ?>">Laporan</a>

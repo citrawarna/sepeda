@@ -2,7 +2,7 @@
 include_once("proses/config.php");
 
 if(cek_login()){
-	$title = 'Data Member';
+	$title = 'Detail Peminjaman';
 	$menu = 3;
 	include("view/header.php");
 
@@ -46,9 +46,9 @@ if(isset($_GET['nota'])){
 			<input type="hidden" class="form-control" name="jumlah_sepeda" value="1">
 		</tr>
 	</table>
-	<div class="order-btn">
+	<!-- <div class="order-btn">
 		<a href="#" class="btn-plus"><i class="fa fa-plus"></i> Tambah</a>
-	</div>
+	</div> -->
 	<div align="right" style="margin-right:70px">
     <input type="submit" value="Simpan" class="btn btn-primary">		
 	</div>
@@ -60,7 +60,7 @@ if(isset($_GET['nota'])){
 		var data_sepeda = [];
 		var dat = [];
 		$.ajax({
-			url: 'request_ajax.php',
+			url: 'request_ajax/req_sepeda.php',
 			method: 'GET',
 			success: function(data){
 				var res = JSON.parse(data);
