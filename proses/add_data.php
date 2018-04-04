@@ -67,16 +67,21 @@ switch ($_GET['fungsi']) {
 
 	case 'pengembalian':
 		$kd_transaksi = $_POST['kd_transaksi'];
+		$id_member = $_POST['id_member'];
 		$tanggal_kembali = $_POST['tanggal_kembali'];
 		$jam_kembali = $_POST['jam_kembali'];
 		$biaya = $_POST['biaya'];
 		$ids = $_POST['ids'];
+
 		//proses insert ke tbl pengembalian
 		$ins = $db->query("INSERT INTO pengembalian VALUES (".quote($kd_transaksi).", ".quote($tanggal_kembali)."
 			, ".quote($jam_kembali).", ".quote($biaya).")");
 		
 		//update tb peminjaman ganti status selesai = y 
 		$upd_pem = $db->query("UPDATE peminjaman SET selesai = 'y', dibawa = 0 WHERE kd_transaksi = ".quote($kd_transaksi)." ");
+
+		//update status member = 1 (agar bisa pinjam)
+		$upd_mem = $db->query("UPDATE member SET status = 1 WHERE id_member = $id_member ");
 
 		//update tb detail peminjaman ubah status kembali = y
 		$upd_dtl = $db->query("UPDATE detail_peminjaman SET kembali = 'y' WHERE kd_transaksi = '$kd_transaksi' ");

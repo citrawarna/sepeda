@@ -46,6 +46,7 @@ if(isset($_GET['nota'])){
 		<tr>
 			<td>Nama Pemesan</td>
 			<td> : </td>
+			<input type="hidden" name="id_member" value="<?= $kd_trans['id_member']; ?>">
 			<td><?= $kd_trans['nama'] ?></td>
 		</tr>
 		<tr>
