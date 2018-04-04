@@ -70,6 +70,7 @@ switch ($_GET['fungsi']) {
 		$tanggal_kembali = $_POST['tanggal_kembali'];
 		$jam_kembali = $_POST['jam_kembali'];
 		$biaya = $_POST['biaya'];
+		$ids = $_POST['ids'];
 		//proses insert ke tbl pengembalian
 		$ins = $db->query("INSERT INTO pengembalian VALUES (".quote($kd_transaksi).", ".quote($tanggal_kembali)."
 			, ".quote($jam_kembali).", ".quote($biaya).")");
@@ -80,10 +81,13 @@ switch ($_GET['fungsi']) {
 		//update tb detail peminjaman ubah status kembali = y
 		$upd_dtl = $db->query("UPDATE detail_peminjaman SET kembali = 'y' WHERE kd_transaksi = '$kd_transaksi' ");
 
-		$selectSpd = $db->query("SELECT * from detail_peminjaman inner join sepeda on sepeda.id_sepeda = detail_peminjaman.id_sepeda 
-			WHERE detail_peminjaman.kd_transaksi = '$kd_transaksi' ");
-		print_r($selectSpd->fetch());
-
+		foreach (explode(',', $ids) as $id) {
+			$stock_update = $db->query("select dipinjam,ready from sepeda where id_sepeda = '".$id."' limit 1");
+			$data = $stock_update->fetch();
+			$new_dipinjam = $data['dipinjam'] - 1;
+			$new_ready = $data['ready'] + 1;
+			$db->query("UPDATE sepeda set dipinjam = $new_dipinjam, ready = $new_ready where id_sepeda = '".$id."'");
+		}
 
 
 		//istirahat dulu, masih memikirkan kode untuk mengupdate stok sepeda yang dikembalikan

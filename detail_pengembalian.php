@@ -35,7 +35,7 @@ if(isset($_GET['nota'])){
 ?>
 
 <h3>Proses Pengembalian</h3>
-<form action="add_data?fungsi=pengembalian" method="post">
+<form action="proses/add_data.php?fungsi=pengembalian" method="post">
 	<table class="table">
 		<tr>
 			<td>No Nota </td>
@@ -108,7 +108,6 @@ if(isset($_GET['nota'])){
 		          <span aria-hidden="true">&times;</span>
 		        </button>
 		      </div>
-		      <form action="proses/add_data.php?fungsi=add_sepeda" method="post">
 			      <div class="modal-body">
 			        <table class="table table-sm">
 		        		<tr>
@@ -120,7 +119,9 @@ if(isset($_GET['nota'])){
 		        		<?php $q_sepeda = $db->query("SELECT * FROM detail_peminjaman INNER JOIN sepeda on 
 		        		sepeda.id_sepeda = detail_peminjaman.id_sepeda WHERE kd_transaksi = '$get_kode' ");
 		        		$no = 1; 
+		        		$ids = [];
 		        		foreach($q_sepeda as $row) { ?>
+		        		<?php array_push($ids, $row['id_sepeda']); ?>
 		        		<tr>
 		        			<td><?= $no++ ?></td>
 		        			<td><?= $row['id_sepeda'] ?></td>
@@ -128,15 +129,16 @@ if(isset($_GET['nota'])){
 		        			<td><?= $row['jumlah'] ?></td>
 		        		</tr>
 			        	<?php } ?>
+			        	<input type="hidden" name="ids" value="<?= implode(',',$ids) ?>">
 			        </table>
 			      </div>
 			      <div class="modal-footer">
 			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 			      </div>
-		      </form>
 		    </div>
 		  </div>
 		</div>
+		<<button type="submit" class="btn btn-primary">Simpan</button>
 </form>
 
 <?php include_once('view/footer.php') ?>
