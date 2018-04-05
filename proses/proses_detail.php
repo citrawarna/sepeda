@@ -39,7 +39,7 @@ $upd_spd = $db->query("UPDATE sepeda SET dipinjam = '$sepedaDipinjam', ready = '
 
 //update sepeda yang dibawa pada tabel peminjaman
 $spd_dibawa = $db->query("UPDATE peminjaman SET dibawa = '$jml' WHERE kd_transaksi = '$kd_transaksi' ");
-pesan("success", "Berhasil melakukan transaksi peminjaman", "../detail_peminjaman.php?nota=$kd_transaksi");
+pesan("success", "Berhasil menambahkan sepeda yang dipinjam", "../detail_peminjaman.php?nota=$kd_transaksi");
 
 
 

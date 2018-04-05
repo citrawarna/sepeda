@@ -20,25 +20,12 @@ if(cek_login()){
  					<?php $data_member = $db->query("SELECT * FROM peminjaman INNER JOIN member on member.id_member = peminjaman.id_member WHERE selesai = 'n'"); 
  						foreach($data_member as $row){
  					?>
- 					<option value="<?= $row['kd_transaksi'] ?>"> <?= $row['kd_transaksi'] ?></option>
+ 					<option value="<?= $row['kd_transaksi'] ?>"> <?= $row['kd_transaksi'] ." - ". $row['nama'] ?> </option>
  					<?php } ?>
  				</select>
  			</td>
  		</tr>
- 		<tr>
- 			<td>Nama Peminjam</td>
- 			<td> : </td>
- 			<td>
- 				<select name="id_member" id="" class="form-control">
- 					<option value="">Pilih </option>
- 					<?php $data_member = $db->query("SELECT * FROM peminjaman INNER JOIN member on member.id_member = peminjaman.id_member"); 
- 						foreach($data_member as $row){
- 					?>
- 					<option value="<?= $row['id_member'] ?>"> <?= $row['nama'] ?></option>
- 					<?php } ?>
- 				</select>
- 			</td>
- 		</tr>
+ 		
  		<tr>
  			<td colspan="3" align="right"><input type="submit" value="Proses"></td>
  		</tr>

@@ -11,11 +11,11 @@ if(cek_login()){
 <?php 
 if(isset($_GET['nota'])){
 	$get_kode = $_GET['nota'];
-	$slcKd = $db->prepare("SELECT * FROM peminjaman INNER JOIN member on member.id_member = peminjaman.id_member WHERE kd_transaksi = '$get_kode' ");
+	$slcKd = $db->prepare("SELECT * FROM peminjaman INNER JOIN member on member.id_member = peminjaman.id_member WHERE kd_transaksi = '$get_kode' AND selesai='n' ");
 	$slcKd->execute();
 
 	if($slcKd->rowCount() != 1){
-		pesan("danger", "Data tidak ada", "pengembalian.php");
+		pesan("danger", "Data tidak ada atau mungkin sudah di proses", "pengembalian.php");
 	} 
 
 	$kd_trans = $slcKd->fetch(); 
@@ -25,11 +25,14 @@ if(isset($_GET['nota'])){
 	$jam_pinjam = strtotime($kd_trans['jam_pinjam']);
 	$jam_kembali = strtotime(date('H:i:s'));
 	$durasi = round(($jam_kembali - $jam_pinjam) / 3600);
+	if($durasi == 0){
+		$durasi = 1;
+	}
 	$total_harga = $durasi * $harga * $total_sepeda;
 
 
 } else {
-		pesan("warning", "Harap melakukan transaksi terlebih dahulu sebelum melanjutkan", "peminjaman.php");
+		pesan("warning", "Harap Pilih nomor nota terlebih dahulu", "pengembalian.php");
 }
 
 ?>
@@ -71,6 +74,7 @@ if(isset($_GET['nota'])){
 		<tr>
 			<td>Durasi</td>
 			<td> : </td>
+			<input type="hidden" name="durasi_pinjam" value="<?= $durasi ?>">
 			<td> <?= $durasi ?> Jam</td>
 		</tr>
 		<tr>
@@ -93,7 +97,7 @@ if(isset($_GET['nota'])){
 			<td> : </td>
 			<td>
 				<input type="hidden" name="biaya" value="<?= $total_harga ?>">
-				<input type="text" name="bayar">
+				<input type="text" name="bayar" required>
 			</td>
 		</tr>
 		
@@ -139,7 +143,7 @@ if(isset($_GET['nota'])){
 		    </div>
 		  </div>
 		</div>
-		<<button type="submit" class="btn btn-primary">Simpan</button>
+		<button type="submit" class="btn btn-primary">Simpan</button>
 </form>
 
 <?php include_once('view/footer.php') ?>

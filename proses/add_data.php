@@ -72,10 +72,12 @@ switch ($_GET['fungsi']) {
 		$jam_kembali = $_POST['jam_kembali'];
 		$biaya = $_POST['biaya'];
 		$ids = $_POST['ids'];
+		$bayar = $_POST['bayar'];
+		$durasi_pinjam = $_POST['durasi_pinjam'];
 
 		//proses insert ke tbl pengembalian
 		$ins = $db->query("INSERT INTO pengembalian VALUES (".quote($kd_transaksi).", ".quote($tanggal_kembali)."
-			, ".quote($jam_kembali).", ".quote($biaya).")");
+			, ".quote($jam_kembali).", ".quote($durasi_pinjam).", ".quote($biaya).")");
 		
 		//update tb peminjaman ganti status selesai = y 
 		$upd_pem = $db->query("UPDATE peminjaman SET selesai = 'y', dibawa = 0 WHERE kd_transaksi = ".quote($kd_transaksi)." ");
@@ -86,6 +88,7 @@ switch ($_GET['fungsi']) {
 		//update tb detail peminjaman ubah status kembali = y
 		$upd_dtl = $db->query("UPDATE detail_peminjaman SET kembali = 'y' WHERE kd_transaksi = '$kd_transaksi' ");
 
+		//thx to surya was creating this function
 		foreach (explode(',', $ids) as $id) {
 			$stock_update = $db->query("select dipinjam,ready from sepeda where id_sepeda = '".$id."' limit 1");
 			$data = $stock_update->fetch();
@@ -94,12 +97,9 @@ switch ($_GET['fungsi']) {
 			$db->query("UPDATE sepeda set dipinjam = $new_dipinjam, ready = $new_ready where id_sepeda = '".$id."'");
 		}
 
+		$kembalian = $bayar - $biaya;
 
-		//istirahat dulu, masih memikirkan kode untuk mengupdate stok sepeda yang dikembalikan
-		//di count dlu id_sepeda dan jumlah
-		//setelah itu di query agar table sepeda juga terupdate
-		//fakk ternyata susah amat ga semudah yg gw pikirin
-
+		pesan("success", "Transaksi pengembalian berhasil", "../pengembalian_selesai.php?nota=$kd_transaksi&susuk=$kembalian");
 
 
 		break;
