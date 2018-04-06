@@ -103,47 +103,47 @@ if(isset($_GET['nota'])){
 		
 	</table>
 
-	<!-- Modal -->
-	<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
-		  <div class="modal-dialog" role="document">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h5 class="modal-title" id="addModalLabel">Detail Sepeda</h5>
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		          <span aria-hidden="true">&times;</span>
-		        </button>
-		      </div>
-			      <div class="modal-body">
-			        <table class="table table-sm">
-		        		<tr>
-		        			<td>No</td>
-		        			<td>ID</td>
-		        			<td>Nama Sepeda</td>
-		        			<td>Jumlah</td>
-		        		</tr>
-		        		<?php $q_sepeda = $db->query("SELECT * FROM detail_peminjaman INNER JOIN sepeda on 
-		        		sepeda.id_sepeda = detail_peminjaman.id_sepeda WHERE kd_transaksi = '$get_kode' ");
-		        		$no = 1; 
-		        		$ids = [];
-		        		foreach($q_sepeda as $row) { ?>
-		        		<?php array_push($ids, $row['id_sepeda']); ?>
-		        		<tr>
-		        			<td><?= $no++ ?></td>
-		        			<td><?= $row['id_sepeda'] ?></td>
-		        			<td><?= $row['nama_sepeda'] ?></td>
-		        			<td><?= $row['jumlah'] ?></td>
-		        		</tr>
-			        	<?php } ?>
-			        	<input type="hidden" name="ids" value="<?= implode(',',$ids) ?>">
-			        </table>
+		<!-- Modal -->
+		<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="addModalLabel">Detail Sepeda</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
 			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			      </div>
-		    </div>
-		  </div>
+				      <div class="modal-body">
+				        <table class="table table-sm">
+			        		<tr>
+			        			<td>No</td>
+			        			<td>ID</td>
+			        			<td>Nama Sepeda</td>
+			        			<td>Jumlah</td>
+			        		</tr>
+			        		<?php $q_sepeda = $db->query("SELECT * FROM detail_peminjaman INNER JOIN sepeda on 
+			        		sepeda.id_sepeda = detail_peminjaman.id_sepeda WHERE kd_transaksi = '$get_kode' ");
+			        		$no = 1; 
+			        		$ids = [];
+			        		foreach($q_sepeda as $row) { ?>
+			        		<?php array_push($ids, $row['id_sepeda']); ?>
+			        		<tr>
+			        			<td><?= $no++ ?></td>
+			        			<td><?= $row['id_sepeda'] ?></td>
+			        			<td><?= $row['nama_sepeda'] ?></td>
+			        			<td><?= $row['jumlah'] ?></td>
+			        		</tr>
+				        	<?php } ?>
+				        	<input type="hidden" name="ids" value="<?= implode(',',$ids) ?>">
+				        </table>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				      </div>
+			    </div>
+			  </div>
 		</div>
-		<button type="submit" class="btn btn-primary">Simpan</button>
+	<button type="submit" class="btn btn-primary">Simpan</button>
 </form>
 
 <?php include_once('view/footer.php') ?>

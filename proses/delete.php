@@ -6,7 +6,7 @@ $id = intval($_GET['id']);
 
 switch ($delete) {
 	case 'member':
-		$del = $db->query("DELETE FROM member WHERE id =". quote($id). "AND status = 1");
+		$softDelete = $db->query("UPDATE member SET hapus = 'y' WHERE id_member = '$id' ");
 		pesan("success", "Data berhasil dihapus", "../index.php");
 		break;
 	

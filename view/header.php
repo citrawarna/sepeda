@@ -11,7 +11,16 @@
 	<script src="js/jquery-3.2.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
 	<script src="js/jquery-ui.min.js"></script>
+	<link rel="stylesheet" href="<?= base_url('css/jquery-ui.css') ?>">
 </head>
+<script>
+  $(function() {
+     $( "#datepicker1" ).datepicker({ dateFormat: 'yy-mm-dd' });
+	});
+  $(function() {
+     $( "#datepicker2" ).datepicker({ dateFormat: 'yy-mm-dd' });
+	});
+</script>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-warning">
 		<div class="container">
@@ -33,8 +42,8 @@
 		          <a class="dropdown-item" href="<?= base_url('peminjaman.php') ?>">Peminjaman</a>
 		          <a class="dropdown-item" href="<?= base_url('pengembalian.php') ?>">Pengembalian</a>
 		        </div>
-		      <li class="nav-item ">
-		        <a class="nav-link" href="<?= base_url('...'); ?>">Laporan</a>
+		      <li class="nav-item <?php if($menu==4) echo "active"; ?>">
+		        <a class="nav-link" href="<?= base_url('laporan.php'); ?>">Laporan</a>
 		      </li>
 		      <li class="nav-item">
 		        <a class="nav-link btn btn-danger" href="<?= base_url('proses/logout.php'); ?>">Logout</a>

@@ -16,7 +16,7 @@ if(cek_login()){
 		<br><br>
 
 		<?php 
-			$data = $db->query("SELECT * FROM member ORDER BY nama");
+			$data = $db->query("SELECT * FROM member WHERE hapus = 'n' ORDER BY nama ");
 			$no = 1;
 			$jenis = array('', 'KTP', 'SIM', 'KTM', 'KP');
 		 ?>
@@ -38,7 +38,7 @@ if(cek_login()){
 					else if($row['tipe'] == 2) echo "SIM"; 
 					else if($row['tipe'] == 3) echo "KTM"; 
 					else if($row['tipe'] == 4) echo "KP" ?></td>
-				<td><a href="proses/delete.php?delete=member&id=<?=$row['id']?>" 
+				<td><a href="<?= "proses/delete.php?delete=member&id=".$row['id_member']; ?>" 
 					class="btn btn-danger btn-sm <?php if($row['status']=='0') echo "disabled" ?>"
 					onclick="return confirm('Yakin hapus data?');">Hapus</a>
 				</td>	

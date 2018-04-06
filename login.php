@@ -33,7 +33,7 @@
         </label>
       </div>
       <input type="submit" class="btn btn-lg btn-secondary btn-block" value="Sign in">
-      <p class="mt-5 mb-3 white">&copy; 2018</p>
+      <p class="mt-5 mb-3 white">&copy; 2018 - by Refo Junior</p>
     </form>
   </body>
 </html>

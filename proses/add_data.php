@@ -18,7 +18,7 @@ switch ($_GET['fungsi']) {
 		}
 
 		$insert = $db->query("INSERT INTO member VALUES (null, ".quote($nama).", ".quote($kitas).", 
-			".quote($tipe).", ".quote($telp).", 1)");
+			".quote($tipe).", ".quote($telp).", 1, 'n')");
 		pesan("success", "Data member berhasil ditambah", "../index.php");
 		break;
 
@@ -100,6 +100,25 @@ switch ($_GET['fungsi']) {
 		$kembalian = $bayar - $biaya;
 
 		pesan("success", "Transaksi pengembalian berhasil", "../pengembalian_selesai.php?nota=$kd_transaksi&susuk=$kembalian");
+
+
+		break;
+
+	case 'laporan':
+		$dari = $_POST['dari'];
+		$sampai = $_POST['sampai'];
+		$detail = $_POST['detail'];
+
+		$show = $db->query("SELECT * FROM peminjaman WHERE tanggal BETWEEN '$dari' AND '$sampai' ");
+		if($show->rowCount() == 0){
+			echo "<script>alert('Tanggal tidak Valid atau data tidak ada'); location.href='../laporan.php'</script>";
+		}
+
+		if(empty($detail)){
+			pesan("", "", "../laporan.php?dari=$dari&sampai=$sampai");
+		} else if(isset($detail)) {
+			pesan("", "", "../laporan.php?dari=$dari&sampai=$sampai&detail=$detail");
+		}
 
 
 		break;
